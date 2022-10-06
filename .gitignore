@@ -7,3 +7,6 @@ node_modules
 # environment files
 .env*
 !.env.sample
+
+# typescript output
+dist

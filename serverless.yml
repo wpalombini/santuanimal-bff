@@ -41,9 +41,15 @@ resources:
       Properties:
         StageName: ${self:provider.stage}
 
+package:
+  patterns:
+    - '!**/**'
+    - 'dist/**'
+    - 'node_modules/**'
+
 functions:
   main:
-    handler: index.handler
+    handler: dist/index.handler
     events:
       - httpApi:
           method: POST

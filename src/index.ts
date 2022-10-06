@@ -1,6 +1,7 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-exports.handler = async (event) => {
+export const handler = async (event: unknown) => {
   const currentDate = new Date().toLocaleString('en-AU');
 
   return {
