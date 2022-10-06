@@ -1,0 +1,55 @@
+service: santuanimal-bff
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3001
+    noAuth: true
+
+provider:
+  name: aws
+  region: ap-southeast-2
+  runtime: nodejs16.x
+  environment:
+    APP_BASE_URL: ${env:APP_BASE_URL}
+    ENVIRONMENT: ${env:ENVIRONMENT}
+  stage: ${opt:stage, 'dev'}
+  httpApi:
+    authorizers:
+      firebaseJwtAuthorizer:
+        identitySource: $request.header.authorization
+        issuerUrl: ${env:ISSUER_URL}
+        audience:
+          - ${env:FIREBASE_PROJECT_NAME}
+    cors:
+      allowedOrigins:
+        - ${env:APP_BASE_URL}
+      allowedHeaders:
+        - '*'
+      allowedMethods:
+        - POST
+        - OPTIONS
+      allowCredentials: true
+
+resources:
+  extensions:
+    HttpApiStage:
+      Properties:
+        StageName: ${self:provider.stage}
+
+functions:
+  main:
+    handler: index.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /api
+          authorizer:
+            name: firebaseJwtAuthorizer
+      - httpApi:
+          method: OPTIONS
+          path: /api

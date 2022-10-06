@@ -1,0 +1,9 @@
+# npm packages
+node_modules
+
+# serverless
+.serverless
+
+# environment files
+.env*
+!.env.sample
