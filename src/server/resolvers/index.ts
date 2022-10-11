@@ -1,5 +1,5 @@
-import sanctuaryResolver from './sanctuary';
+import accountResolver from './account';
 
-const resolvers = [sanctuaryResolver];
+const resolvers = [accountResolver];
 
 export default resolvers;

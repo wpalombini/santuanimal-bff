@@ -1,5 +1,5 @@
-import santuaryTypeDef from './sanctuary';
+import accountTypeDef from './account';
 
-const typeDefs = [santuaryTypeDef];
+const typeDefs = [accountTypeDef];
 
 export default typeDefs;
